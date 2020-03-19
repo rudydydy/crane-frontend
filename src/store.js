@@ -9,7 +9,7 @@ const reduxMiddleware = () => {
   if (process.env.NODE_ENV === 'production') {
     return applyMiddleware(thunkMiddleware);  
   } else {
-		return applyMiddleware(thunkMiddleware, loggerMiddleware);
+    return applyMiddleware(thunkMiddleware, loggerMiddleware);
   }
 }
 
