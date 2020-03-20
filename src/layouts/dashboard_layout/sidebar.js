@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import MenuLink from './menu_link';
 import CraneLogo from '../../assets/img/crane_logo.png';
 
 const ADMIN_ROLE = 'admin';
@@ -18,47 +18,47 @@ const Sidebar = ({ email, role, handleSignOut }) => (
       <div className="navbar-inner">
         <div className="collapse navbar-collapse" id="sidenav-collapse-main">
           <ul className="navbar-nav mb-md-3">
-            <li className="nav-item">
-              <Link className="nav-link" to="/dashboard">
-                <i className="ni ni-planet text-primary"></i>
-                <span className="nav-link-text">Dashboard</span>
-              </Link>
-            </li>
+            <MenuLink 
+              to="/dashboard"
+              text="Dashboard"
+              textColor="text-primary"
+              icon="ni-planet"
+            />
             {
               role === ADMIN_ROLE &&
-              <li className="nav-item">
-                <Link className="nav-link" to="/dashboard/users">
-                  <i className="ni ni-circle-08 text-warning"></i>
-                  <span className="nav-link-text">Users</span>
-                </Link>
-              </li>
+              <MenuLink 
+                to="/dashboard/users"
+                text="Users"
+                textColor="text-warning"
+                icon="ni-circle-08"
+              />
             }
             {
               role === ADMIN_ROLE &&
-              <li className="nav-item">
-                <Link className="nav-link" to="/dashboard/applications">
-                  <i className="ni ni-collection text-info"></i>
-                  <span className="nav-link-text">Applications</span>
-                </Link>
-              </li>
+              <MenuLink 
+                to="/dashboard/applications"
+                text="Applications"
+                textColor="text-info"
+                icon="ni-collection"
+              />
             }
             {
               (role === ADMIN_ROLE || role === CREATOR_ROLE) &&
-              <li className="nav-item">
-                <Link className="nav-link" to="/dashboard/shells">
-                  <i className="ni ni-laptop text-dark"></i>
-                  <span className="nav-link-text">Shells</span>
-                </Link>
-              </li>
+              <MenuLink 
+                to="/dashboard/shells"
+                text="Shells"
+                textColor="text-dark"
+                icon="ni-laptop"
+              />
             }
             {
               (role === ADMIN_ROLE || role === ACTIVATOR_ROLE) &&
-              <li className="nav-item">
-                <Link className="nav-link" to="/dashboard/shells/activate">
-                  <i className="ni ni-laptop text-success"></i>
-                  <span className="nav-link-text">Activate Shell</span>
-                </Link>
-              </li>
+              <MenuLink 
+                to="/dashboard/activate"
+                text="Activate Shell"
+                textColor="text-success"
+                icon="ni-laptop"
+              />
             }
           </ul>
           <hr className="my-3" />
