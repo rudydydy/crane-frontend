@@ -8,6 +8,7 @@ import {
   SIGN_UP_PENDING,
   SIGN_UP_SUCCESS,
   SIGN_UP_FAILED,
+  SIGN_OUT_SUCCESS,
   SESSION_TOKEN,
 } from '../constants/sessions';
 import HttpStatus from '../helpers/http_status';
@@ -17,8 +18,9 @@ const signInUserPending = () => ({
   type: SIGN_IN_PENDING,
 })
 
-const signInUserSuccess = () => ({
+const signInUserSuccess = (payload) => ({
   type: SIGN_IN_SUCCESS,
+  payload,
 })
 
 const signInUserFailed = (payload) => ({
@@ -34,7 +36,7 @@ export const signInUser = (params) => (dispatch) => {
     .then(res => res.data)
     .then(json => {
       localStorage.setItem(SESSION_TOKEN, json.data.token);
-      dispatch(signInUserSuccess());
+      dispatch(signInUserSuccess(json.data));
     })
     .catch(error => {
       const errorsRes = error.response;
@@ -50,8 +52,9 @@ const signUpUserPending = () => ({
   type: SIGN_UP_PENDING,
 })
 
-const signUpUserSuccess = () => ({
+const signUpUserSuccess = (payload) => ({
   type: SIGN_UP_SUCCESS,
+  payload,
 })
 
 const signUpUserFailed = () => ({
@@ -67,7 +70,7 @@ export const signUpUser = (params) => (dispatch) => {
     .then(res => res.data)
     .then(json => {
       localStorage.setItem(SESSION_TOKEN, json.data.token);
-      dispatch(signUpUserSuccess());
+      dispatch(signUpUserSuccess(json.data));
     })
     .catch(error => {
       const errorsRes = error.response;
@@ -84,6 +87,15 @@ export const signUpUser = (params) => (dispatch) => {
     });
 }
 
+const signOutSuccess = () => ({
+  type: SIGN_OUT_SUCCESS,
+})
+
+export const signOutUser = () => (dispatch) => {
+  localStorage.removeItem(SESSION_TOKEN);
+  dispatch(signOutSuccess());
+}
+
 export const sessionChecker = (store) => {
   // here we check if seller is authenticated or determine by 
   // localStorage token is empty or not
@@ -97,7 +109,11 @@ export const sessionChecker = (store) => {
       // check if token is expired or not, if conditional is true
       if(decode.exp > dateTime) {
         // token is still valid, i will automatically signed you in
-        store.dispatch(signInUserSuccess()); 
+        const payload = {
+          email: decode.email,
+          role: decode.role,
+        };
+        store.dispatch(signInUserSuccess(payload)); 
       }
     } catch {
       // to catch if decoding jwt token is failed

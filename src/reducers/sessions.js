@@ -5,6 +5,7 @@ import {
   SIGN_UP_PENDING,
   SIGN_UP_SUCCESS,
   SIGN_UP_FAILED,
+  SIGN_OUT_SUCCESS,
 } from '../constants/sessions';
 
 const initialState = {
@@ -48,6 +49,11 @@ const sessionsReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
+      };
+    case SIGN_OUT_SUCCESS:
+      return {
+        ...state,
+        authenticated: false,
       };
     default:
       return state;

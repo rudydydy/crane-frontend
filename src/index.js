@@ -13,11 +13,16 @@ import './assets/css/nucleo.css';
 import './assets/css/style.css';
 import { sessionChecker } from './actions/sessions';
 import store from './store';
+import DashboardLayout from './layouts/dashboard_layout';
 import SignIn from './components/sign_in';
 import SignUp from './components/sign_up';
 import * as serviceWorker from './serviceWorker';
 
 sessionChecker(store);
+
+const Abc = () => (
+  <div>Hello World</div>
+)
 
 ReactDOM.render(
   <Provider store={store}>
@@ -35,6 +40,11 @@ ReactDOM.render(
           exact={true}
           path="/sign_up"
           component={SignUp}
+        />
+        <Route
+          exact={true}
+          path="/dashboard"
+          component={DashboardLayout(Abc)}
         />
       </Switch>
     </Router> 

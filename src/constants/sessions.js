@@ -6,4 +6,6 @@ export const SIGN_UP_PENDING = 'SIGN_UP_PENDING';
 export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS';
 export const SIGN_UP_FAILED = 'SIGN_UP_FAILED';
 
+export const SIGN_OUT_SUCCESS = 'SIGN_OUT_SUCCESS';
+
 export const SESSION_TOKEN = 'SESSION_TOKEN';
