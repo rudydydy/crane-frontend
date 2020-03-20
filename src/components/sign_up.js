@@ -4,19 +4,20 @@ import { connect  } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { Redirect } from "react-router-dom";
 import InputField from './shared/input_field';
-import { signInUser } from '../actions/sessions';
+import { signUpUser } from '../actions/sessions';
+import { isBlank, isEmailFormat } from '../helpers/validation';
 
-class SignIn extends Component {
+class SignUp extends Component {
   constructor(props) {
     super(props)
 
     document.body.className = 'bg-default';
 
-    this.handleSignIn = this.handleSignIn.bind(this);
+    this.handleSignUp = this.handleSignUp.bind(this);
   }
 
-  handleSignIn(params) {
-    return this.props.signInUser(params);
+  handleSignUp(params) {
+    return this.props.SignUpUser(params);
   }
 
   render() {
@@ -49,7 +50,7 @@ class SignIn extends Component {
                   <div className="text-center text-muted mb-4">
                     {message && <small className="text-danger">{message}</small>}
                   </div>
-                  <form onSubmit={handleSubmit(this.handleSignIn)}>
+                  <form onSubmit={handleSubmit(this.handleSignUp)}>
                     <Field
                       name="email"
                       type="email"
@@ -66,13 +67,21 @@ class SignIn extends Component {
                       autocomplete="off"
                       component={InputField}
                     />
+                    <Field
+                      name="password_confirmation"
+                      type="password"
+                      label="Password Confirmation"
+                      icon="ni-lock-circle-open"
+                      autocomplete="off"
+                      component={InputField}
+                    />
                     <div className="text-center">
                       <button 
                         type="submit" 
                         className="btn btn-primary my-4"
                         disabled={loading || submitting}
                       >
-                        Sign in
+                        Sign up
                       </button>
                     </div>
                   </form>
@@ -81,8 +90,8 @@ class SignIn extends Component {
               <div className="row mt-3">
                 <div className="col-6" />
                 <div className="col-6 text-right">
-                  <Link to="/sign_up" className="text-light">
-                    <small>Don’t have an account? Sign Up</small>
+                  <Link to="/sign_in" className="text-light">
+                    <small>Already have an account? Sign In</small>
                   </Link>
                 </div>
               </div>
@@ -94,12 +103,39 @@ class SignIn extends Component {
   }
 }
 
+const validate = (values) => {
+  const errors = {};
+
+  if (isBlank(values.email)) {
+    errors.email = "can't be blank";
+  } else if (!isEmailFormat(values.email)) {
+    errors.email = 'invalid email format';
+  }
+
+  if (isBlank(values.password)) {
+    errors.password = "can't be blank";
+  }
+
+  if (isBlank(values.password_confirmation)) {
+    errors.password_confirmation = "can't be blank";
+  }
+
+  if (values.password && values.password_confirmation) {
+    if (values.password !== values.password_confirmation) {
+      errors.password = 'not match password confirmation';
+    }
+  }
+
+  return errors;
+}
+
 const mapStateToProps = ({ sessions }) => ({ ...sessions });
 
 const mapDispatchToProps = (dispatch) => ({
-  signInUser: (params) => dispatch(signInUser(params)),
+  SignUpUser: (params) => dispatch(signUpUser(params)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
-  form: 'sign_in_form' 
-})(SignIn))
+  form: 'sign_up_form',
+  validate,
+})(SignUp))

@@ -15,8 +15,8 @@ const InputField = ({ input, label, icon, type, meta: { touched, error  } }) => 
         placeholder={label} 
         type={type}
       />
-      {touched && error && <span>{error}</span>}
     </div>
+    {touched && error && <span className="text-danger">{error}</span>}
   </div>
 );
 

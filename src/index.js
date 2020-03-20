@@ -13,23 +13,29 @@ import './assets/css/nucleo.css';
 import './assets/css/style.css';
 import store from './store';
 import SignIn from './components/sign_in';
+import SignUp from './components/sign_up';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-	<Provider store={store}>
-		<Router>
-			<Switch>
-				<Route exact={true} path="/">
-				  <Redirect to="/sign_in" />
-				</Route>
-				<Route
-					exact={true}
-					path="/sign_in"
-					component={SignIn}
-				/>
-			</Switch>
-		</Router> 
-	</Provider>,
+  <Provider store={store}>
+    <Router>
+      <Switch>
+        <Route exact={true} path="/">
+          <Redirect to="/sign_in" />
+        </Route>
+        <Route
+          exact={true}
+          path="/sign_in"
+          component={SignIn}
+        />
+        <Route
+          exact={true}
+          path="/sign_up"
+          component={SignUp}
+        />
+      </Switch>
+    </Router> 
+  </Provider>,
   document.getElementById('root')
 );
 

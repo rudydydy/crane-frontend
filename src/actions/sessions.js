@@ -1,9 +1,14 @@
+import { SubmissionError } from 'redux-form';
 import axios from '../axios_instance';
 import {
   SIGN_IN_PENDING,
   SIGN_IN_SUCCESS,
-  SIGN_IN_FAILED
+  SIGN_IN_FAILED,
+  SIGN_UP_PENDING,
+  SIGN_UP_SUCCESS,
+  SIGN_UP_FAILED
 } from '../constants/sessions';
+import { errorFormatter } from '../helpers/formatter';
 
 const signInUserPending = () => ({
   type: SIGN_IN_PENDING,
@@ -22,13 +27,47 @@ export const signInUser = (params) => (dispatch) => {
   const endpoint = '/api/v1/users/login';
 
   dispatch(signInUserPending());
-  axios.post(endpoint, params)
+  return axios.post(endpoint, params)
     .then(res => {
-      console.log('Sign in success', res);
       dispatch(signInUserSuccess());
     })
     .catch(error => {
-      console.log('Error sign in', error);
-      dispatch(signInUserFailed(error));
+      dispatch(signInUserFailed(error.response.data.message));
+    });
+}
+
+const signUpUserPending = () => ({
+  type: SIGN_UP_PENDING,
+})
+
+const signUpUserSuccess = () => ({
+  type: SIGN_UP_SUCCESS,
+})
+
+const signUpUserFailed = () => ({
+  type: SIGN_UP_FAILED,
+})
+
+export const signUpUser = (params) => (dispatch) => {
+  const endpoint = '/api/v1/users';
+  const body = { user: { ...params } };
+
+  dispatch(signUpUserPending());
+  return axios.post(endpoint, body)
+    .then(res => {
+      dispatch(signUpUserSuccess());
+    })
+    .catch(error => {
+      const errorsRes = error.response;
+      dispatch(signUpUserFailed());
+
+      if (errorsRes.status === 422) {
+        const errorValidation = errorsRes.data.errors;
+        const serverError = errorFormatter(errorValidation);
+
+        throw new SubmissionError(serverError);
+      } else {
+
+      }
     });
 }
