@@ -11,10 +11,13 @@ import './assets/css/argon.css';
 import './assets/css/fontawesome.min.css';
 import './assets/css/nucleo.css';
 import './assets/css/style.css';
+import { sessionChecker } from './actions/sessions';
 import store from './store';
 import SignIn from './components/sign_in';
 import SignUp from './components/sign_up';
 import * as serviceWorker from './serviceWorker';
+
+sessionChecker(store);
 
 ReactDOM.render(
   <Provider store={store}>
