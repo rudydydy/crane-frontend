@@ -38,7 +38,7 @@ function DashboardLayout(WrappedComponent) {
             handleSignOut={this.handleSignOut}
           />
           <MainContent>
-            <WrappedComponent />
+            <WrappedComponent {...this.props} />
           </MainContent>
         </Fragment>
       );

@@ -1,6 +1,6 @@
 import { SubmissionError } from 'redux-form';
 import jwtDecode from 'jwt-decode';
-import axios from '../axios_instance';
+import axios from 'axios';
 import {
   SIGN_IN_PENDING,
   SIGN_IN_SUCCESS,
@@ -30,9 +30,10 @@ const signInUserFailed = (payload) => ({
 
 export const signInUser = (params) => (dispatch) => {
   const endpoint = '/api/v1/users/login';
+  const body = { user: { ...params } };
 
   dispatch(signInUserPending());
-  return axios.post(endpoint, params)
+  return axios.post(endpoint, body)
     .then(res => res.data)
     .then(json => {
       localStorage.setItem(SESSION_TOKEN, json.data.token);

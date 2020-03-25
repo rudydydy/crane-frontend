@@ -2,7 +2,7 @@ import React from 'react';
 
 const MainContent = ({ children }) => (
   <div className="main-content" id="panel">
-    <div className="header bg-primary">
+    <div className="header bg-primary pb-6">
       <div className="container-fluid">
         <div className="header-body">
           <div className="row align-items-center py-4">

@@ -20,13 +20,13 @@ const sessionsReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: true,
-        message: null,
       };
     case SIGN_IN_SUCCESS:
       return {
         ...state,
         authenticated: true,
         loading: false,
+        message: null,
       };
     case SIGN_IN_FAILED:
       return {
