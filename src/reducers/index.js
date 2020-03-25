@@ -5,6 +5,7 @@ import sessions from './sessions';
 import profiles from './profiles';
 import users from './users';
 import applications from './applications';
+import shells from './shells';
 
 const rootReducer = combineReducers({
   form: formReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   profiles,
   users,
   applications,
+  shells,
 });
 
 export default rootReducer;
