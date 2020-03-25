@@ -5,6 +5,10 @@ import TableLoading from './shared/table_loading';
 import UserRow from './users_list/user_row';
 import { fetchUsers, deleteUser } from '../actions/users';
 
+const BREADCRUMB_ROUTES = [
+  { title: 'Users' },
+]
+
 class UsersList extends Component {
   constructor(props) {
     super(props);
@@ -13,7 +17,13 @@ class UsersList extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchUsers();
+    const { 
+      setBreadcrumbItems, 
+      fetchUsers 
+    } = this.props;
+
+    setBreadcrumbItems(BREADCRUMB_ROUTES)
+    fetchUsers();
   }
 
   handleDeleteUser(userId) {

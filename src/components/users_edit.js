@@ -6,6 +6,11 @@ import InputField from './shared/input_field';
 import SelectField from './shared/select_field';
 import { fetchUser, updateUser } from '../actions/users';
 
+const BREADCRUMB_ROUTES = [
+  { link: '/dashboard/users', title: 'Users' },
+  { title: 'Edit' },
+]
+
 const ROLE_OPTIONS = [
   { value: 'admin', name: 'Admin' },
   { value: 'creator', name: 'Creator' },
@@ -26,10 +31,12 @@ class UsersEdit extends Component {
         params: {
           id
         }
-      }, 
+      },
+      setBreadcrumbItems,
       fetchUser 
     } = this.props;
 
+    setBreadcrumbItems(BREADCRUMB_ROUTES);
     fetchUser(id)
       .then(() => {
         initialize({ ...this.props.selected });
