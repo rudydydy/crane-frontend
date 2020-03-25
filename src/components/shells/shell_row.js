@@ -38,10 +38,10 @@ const shellRow = ({
   handleDeleteShell,
 }) => (
   <tr key={id}>
-    <td>{application.name}</td>
+    <td>{application && application.name}</td>
     <td>{status}</td>
-    <td>{creator.email}</td>
-    <td>{activator.email}</td>
+    <td>{creator && creator.email}</td>
+    <td>{activator && activator.email}</td>
     <td>{activated_at}</td>
     <td>{expired_at}</td>
     {renderAction(loading, id, handleDeleteShell)}

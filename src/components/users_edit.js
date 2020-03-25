@@ -44,7 +44,7 @@ class UsersEdit extends Component {
       })
   }
 
-  componentDidUnmount() {
+  componentWillUnmount() {
     this.props.setBreadcrumbItems([])
   }
 

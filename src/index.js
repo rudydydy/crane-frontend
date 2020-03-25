@@ -22,6 +22,7 @@ import ApplicationsList from './components/applications_list';
 import ApplicationsNew from './components/applications_new';
 import ApplicationsEdit from './components/applications_edit';
 import ShellsList from './components/shells_list';
+import ShellsNew from './components/shells_new';
 import * as serviceWorker from './serviceWorker';
 
 sessionChecker(store);
@@ -81,6 +82,11 @@ ReactDOM.render(
           exact={true}
           path="/dashboard/shells"
           component={DashboardLayout(ShellsList)}
+        />
+        <Route
+          exact={true}
+          path="/dashboard/shells/new"
+          component={DashboardLayout(ShellsNew)}
         />
       </Switch>
     </Router> 

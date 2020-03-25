@@ -22,7 +22,7 @@ class ApplicationsNew extends Component {
     this.props.setBreadcrumbItems(BREADCRUMB_ROUTES);
   }
 
-  componentDidUnmount() {
+  componentWillUnmount() {
     this.props.setBreadcrumbItems([])
   }
 
@@ -43,7 +43,10 @@ class ApplicationsNew extends Component {
     return (
       <DashboardForm header="New Application">
         <form onSubmit={handleSubmit(this.handleCreateApplication)}>
-          <ApplicationForm disabled={loading || submitting} />
+          <ApplicationForm 
+            disabled={loading || submitting} 
+            submitText="Create"
+          />
         </form>
       </DashboardForm>
     );

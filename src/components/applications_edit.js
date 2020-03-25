@@ -37,7 +37,7 @@ class ApplicationsEdit extends Component {
       })
   }
 
-  componentDidUnmount() {
+  componentWillUnmount() {
     this.props.setBreadcrumbItems([])
   }
 
@@ -67,7 +67,10 @@ class ApplicationsEdit extends Component {
     return (
       <DashboardForm header="Edit Application">
         <form onSubmit={handleSubmit(this.handleUpdateApplication)}>
-          <ApplicationForm disabled={loading || submitting} />
+          <ApplicationForm 
+            disabled={loading || submitting} 
+            submitText="Update"
+          />
         </form>
       </DashboardForm>
     );
