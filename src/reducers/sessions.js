@@ -6,6 +6,7 @@ import {
   SIGN_UP_SUCCESS,
   SIGN_UP_FAILED,
   SIGN_OUT_SUCCESS,
+  CLEAR_ERROR_MESSAGE,
 } from '../constants/sessions';
 
 const initialState = {
@@ -55,6 +56,11 @@ const sessionsReducer = (state = initialState, action) => {
       return {
         ...state,
         authenticated: false,
+      };
+    case CLEAR_ERROR_MESSAGE:
+      return {
+        ...state,
+        message: null,
       };
     default:
       return state;

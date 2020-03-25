@@ -8,6 +8,7 @@ import { fetchUsers, deleteUser } from '../actions/users';
 const BREADCRUMB_ROUTES = [
   { title: 'Users' },
 ]
+const TABLE_HEADER = ['Email', 'Role', 'Created At', '', '']
 
 class UsersList extends Component {
   constructor(props) {
@@ -42,7 +43,7 @@ class UsersList extends Component {
     const { loading, list } = this.props;
 
     if (loading) {
-      return <TableLoading colSpan={5} />
+      return <TableLoading colSpan={TABLE_HEADER.length} />
     }
 
     return list.map((user, index) => (

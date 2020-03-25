@@ -9,6 +9,7 @@ import {
   SIGN_UP_SUCCESS,
   SIGN_UP_FAILED,
   SIGN_OUT_SUCCESS,
+  CLEAR_ERROR_MESSAGE,
   SESSION_TOKEN,
 } from '../constants/sessions';
 import HttpStatus from '../helpers/http_status';
@@ -96,6 +97,10 @@ export const signOutUser = () => (dispatch) => {
   localStorage.removeItem(SESSION_TOKEN);
   dispatch(signOutSuccess());
 }
+
+export const clearErrorMessage = () => ({
+  type: CLEAR_ERROR_MESSAGE
+})
 
 export const sessionChecker = (store) => {
   // here we check if seller is authenticated or determine by 

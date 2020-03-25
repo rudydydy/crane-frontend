@@ -7,12 +7,12 @@ const CREATOR_ROLE = 'creator';
 const ACTIVATOR_ROLE = 'activator';
 
 const Sidebar = ({ email, role, handleSignOut }) => (
-  <nav className="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
+  <nav className="sidenav navbar navbar-vertical fixed-left navbar-expand-xs navbar-light bg-white" id="sidenav-main">
     <div className="scrollbar-inner">
       <div className="sidenav-header  align-items-center">
         <div className="navbar-brand">
-          <span className="text-primary">Crane</span>
-          <img src={CraneLogo} className="navbar-brand-img" /> 
+          <b className="text-primary">Crane</b>
+          <img src={CraneLogo} className="navbar-brand-img" alt="Logo" /> 
         </div>
       </div>
       <div className="navbar-inner">
@@ -64,13 +64,13 @@ const Sidebar = ({ email, role, handleSignOut }) => (
           <hr className="my-3" />
           <ul className="navbar-nav mb-md-3">
             <li className="nav-item">
-              <a
+              <span
                 className="nav-link"
                 onClick={() => handleSignOut()}
               >
                 <i className="ni ni-button-power text-danger"></i>
                 <span className="nav-link-text">Sign Out</span>
-              </a>
+              </span>
             </li>
           </ul>
         </div>

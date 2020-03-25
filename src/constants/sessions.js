@@ -8,4 +8,6 @@ export const SIGN_UP_FAILED = 'SIGN_UP_FAILED';
 
 export const SIGN_OUT_SUCCESS = 'SIGN_OUT_SUCCESS';
 
+export const CLEAR_ERROR_MESSAGE = 'CLEAR_ERROR_MESSAGE';
+
 export const SESSION_TOKEN = 'SESSION_TOKEN';

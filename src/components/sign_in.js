@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { Redirect } from "react-router-dom";
 import InputGroupField from './shared/input_group_field';
-import { signInUser } from '../actions/sessions';
+import { signInUser, clearErrorMessage } from '../actions/sessions';
+import CraneLogo from '../assets/img/crane_logo.png';
 
 class SignIn extends Component {
   constructor(props) {
@@ -13,6 +14,10 @@ class SignIn extends Component {
     document.body.className = 'bg-default';
 
     this.handleSignIn = this.handleSignIn.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.clearErrorMessage();
   }
 
   handleSignIn(params) {
@@ -45,7 +50,10 @@ class SignIn extends Component {
           <div className="row justify-content-center">
             <div className="col-lg-5 col-md-7">
               <div className="card bg-secondary border-0 mb-0">
-                <div className="card-body px-lg-5 py-lg-5">
+                <div className="card-header bg-transparent">
+                  <img src={CraneLogo} style={{ width: '20%', display: 'block', marginLeft: 'auto', marginRight: 'auto' }} alt="Logo" /> 
+                </div>
+                <div className="card-body px-lg-5">
                   <div className="text-center text-muted mb-4">
                     {message && <small className="text-danger">{message}</small>}
                   </div>
@@ -98,6 +106,7 @@ const mapStateToProps = ({ sessions }) => ({ ...sessions });
 
 const mapDispatchToProps = (dispatch) => ({
   signInUser: (params) => dispatch(signInUser(params)),
+  clearErrorMessage: () => dispatch(clearErrorMessage()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({

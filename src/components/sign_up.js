@@ -6,6 +6,7 @@ import { Redirect } from "react-router-dom";
 import InputGroupField from './shared/input_group_field';
 import { signUpUser } from '../actions/sessions';
 import { isBlank, isEmailFormat } from '../helpers/validation';
+import CraneLogo from '../assets/img/crane_logo.png';
 
 class SignUp extends Component {
   constructor(props) {
@@ -24,7 +25,6 @@ class SignUp extends Component {
     const { 
       authenticated,
       loading,
-      message,
       handleSubmit, 
       submitting,
     } = this.props;
@@ -46,10 +46,10 @@ class SignUp extends Component {
           <div className="row justify-content-center">
             <div className="col-lg-5 col-md-7">
               <div className="card bg-secondary border-0 mb-0">
-                <div className="card-body px-lg-5 py-lg-5">
-                  <div className="text-center text-muted mb-4">
-                    {message && <small className="text-danger">{message}</small>}
-                  </div>
+                <div className="card-header bg-transparent">
+                  <img src={CraneLogo} style={{ width: '20%', display: 'block', marginLeft: 'auto', marginRight: 'auto' }} alt="Logo" /> 
+                </div>
+                <div className="card-body px-lg-5">
                   <form onSubmit={handleSubmit(this.handleSignUp)}>
                     <Field
                       name="email"

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const MainContent = ({ breadcrumbItems, newLink, children }) => (
   <div className="main-content" id="panel">
-    <div className="header bg-primary pb-6">
+    <div className="header bg-default pb-6">
       <div className="container-fluid">
         <div className="header-body">
           <div className="row align-items-center py-4">
@@ -11,9 +11,7 @@ const MainContent = ({ breadcrumbItems, newLink, children }) => (
               <nav aria-label="breadcrumb" className="d-none d-md-inline-block">
                 <ol className="breadcrumb breadcrumb-links breadcrumb-dark">
                   <li className="breadcrumb-item">
-                    <Link to="/dashboard">
-                      <i className="ni ni-planet text-primary"></i>
-                    </Link>
+                    <i className="ni ni-planet text-primary"></i>
                   </li>
                   {
                     breadcrumbItems.map((breadcrumb, index) => {

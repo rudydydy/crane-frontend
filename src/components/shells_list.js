@@ -9,6 +9,17 @@ const NEW_SHELL_LINK = '/dashboard/shells/new';
 const BREADCRUMB_ROUTES = [
   { title: 'Shells' },
 ]
+const TABLE_HEADER = [
+  'Token', 
+  'Application', 
+  'Status', 
+  'Creator', 
+  'Activator', 
+  'Activated At', 
+  'Expired At', 
+  '', 
+  ''
+]
 
 class ShellsList extends Component {
   constructor(props) {
@@ -51,7 +62,7 @@ class ShellsList extends Component {
     const { loading, list } = this.props;
 
     if (loading) {
-      return <TableLoading colSpan={8} />
+      return <TableLoading colSpan={TABLE_HEADER.length} />
     }
 
     return list.map((shell, index) => (
@@ -67,7 +78,7 @@ class ShellsList extends Component {
     return (
       <Table
         header="Shells"
-        table_heads={['Application', 'Status', 'Creator', 'Activator', 'Activated At', 'Expired At', '', '']}
+        table_heads={TABLE_HEADER}
       >
         {this.renderList()}
       </Table>

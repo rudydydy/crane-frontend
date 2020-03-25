@@ -6537,7 +6537,7 @@ input[type='button'].btn-block
     list-style: none;
 
     border-radius: .375rem; 
-    background-color: #e9ecef;
+    background-color: white;
 
     flex-wrap: wrap;
 }
@@ -6555,6 +6555,7 @@ input[type='button'].btn-block
     content: '/'; 
 
     color: #8898aa;
+    font-weight: 600;
 }
 
 .breadcrumb-item + .breadcrumb-item:hover::before
@@ -6569,7 +6570,8 @@ input[type='button'].btn-block
 
 .breadcrumb-item.active
 {
-    color: #8898aa;
+    color: #32325d;
+    font-weight: 600;
 }
 
 .pagination

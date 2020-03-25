@@ -27,6 +27,7 @@ const renderAction = (loading, shellId, handleDeleteShell) => {
 const shellRow = ({ 
   shell: { 
     id, 
+    token,
     application, 
     status, 
     activated_at,
@@ -38,6 +39,7 @@ const shellRow = ({
   handleDeleteShell,
 }) => (
   <tr key={id}>
+    <td>{token}</td>
     <td>{application && application.name}</td>
     <td>{status}</td>
     <td>{creator && creator.email}</td>

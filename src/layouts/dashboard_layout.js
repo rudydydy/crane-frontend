@@ -11,7 +11,7 @@ function DashboardLayout(WrappedComponent) {
     constructor(props) {
       super(props);
 
-      document.body.className = '';
+      document.body.className = 'bg-default';
 
       this.handleSignOut = this.handleSignOut.bind(this);
     }

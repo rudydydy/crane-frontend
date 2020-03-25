@@ -10,7 +10,6 @@ import {
 import './assets/css/argon.css';
 import './assets/css/fontawesome.min.css';
 import './assets/css/nucleo.css';
-import './assets/css/style.css';
 import { sessionChecker } from './actions/sessions';
 import store from './store';
 import DashboardLayout from './layouts/dashboard_layout';
@@ -26,10 +25,6 @@ import ShellsNew from './components/shells_new';
 import * as serviceWorker from './serviceWorker';
 
 sessionChecker(store);
-
-const Abc = () => (
-  <div>Hello World</div>
-)
 
 ReactDOM.render(
   <Provider store={store}>
@@ -51,7 +46,7 @@ ReactDOM.render(
         <Route
           exact={true}
           path="/dashboard"
-          component={DashboardLayout(Abc)}
+          component={DashboardLayout(() => <div />)}
         />
         <Route
           exact={true}

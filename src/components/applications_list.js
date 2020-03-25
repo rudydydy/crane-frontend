@@ -9,6 +9,7 @@ const NEW_APPLICATION_LINK = '/dashboard/applications/new';
 const BREADCRUMB_ROUTES = [
   { title: 'Applications' },
 ]
+const TABLE_HEADER = ['Name', 'Command', 'Created At', '', '']
 
 class ApplicationsList extends Component {
   constructor(props) {
@@ -51,7 +52,7 @@ class ApplicationsList extends Component {
     const { loading, list } = this.props;
 
     if (loading) {
-      return <TableLoading colSpan={5} />
+      return <TableLoading colSpan={TABLE_HEADER.length} />
     }
 
     return list.map((application, index) => (
@@ -67,7 +68,7 @@ class ApplicationsList extends Component {
     return (
       <Table
         header="Applications"
-        table_heads={['Name', 'Command', 'Created At', '', '']}
+        table_heads={TABLE_HEADER}
       >
         {this.renderList()}
       </Table>
