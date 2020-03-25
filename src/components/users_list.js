@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Table from './shared/table';
 import TableLoading from './shared/table_loading';
-import UserRow from './users_list/user_row';
+import UserRow from './users/user_row';
 import { fetchUsers, deleteUser } from '../actions/users';
 
 const BREADCRUMB_ROUTES = [

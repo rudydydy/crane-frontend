@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Table from './shared/table';
 import TableLoading from './shared/table_loading';
-import ApplicationRow from './applications_list/application_row';
+import ApplicationRow from './applications/application_row';
 import { fetchApplications, deleteApplication } from '../actions/applications';
 
 const NEW_APPLICATION_LINK = '/dashboard/applications/new';

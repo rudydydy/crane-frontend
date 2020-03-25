@@ -3,31 +3,55 @@ import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import DashboardForm from './shared/dashboard_form';
 import ApplicationForm from './applications/application_form';
-import { createApplication } from '../actions/applications';
+import { fetchApplication, updateApplication } from '../actions/applications';
 import { isBlank } from '../helpers/validation';
 
 const BREADCRUMB_ROUTES = [
   { link: '/dashboard/applications', title: 'Applications' },
-  { title: 'New' },
+  { title: 'Edit' },
 ]
 
-class ApplicationsNew extends Component {
+class ApplicationsEdit extends Component {
   constructor(props) {
     super(props);
 
-    this.handleCreateApplication = this.handleCreateApplication.bind(this);
+    this.handleUpdateApplication = this.handleUpdateApplication.bind(this);
   }
 
   componentDidMount() {
-    this.props.setBreadcrumbItems(BREADCRUMB_ROUTES);
+    const { 
+      initialize, 
+      match: { 
+        params: {
+          id
+        }
+      },
+      setBreadcrumbItems,
+      fetchApplication 
+    } = this.props;
+
+    setBreadcrumbItems(BREADCRUMB_ROUTES);
+    fetchApplication(id)
+      .then(() => {
+        initialize({ ...this.props.selected });
+      })
   }
 
   componentDidUnmount() {
     this.props.setBreadcrumbItems([])
   }
 
-  handleCreateApplication(params) {
-    return this.props.createApplication(params)
+  handleUpdateApplication(params) {
+    const {
+      match: {
+        params: {
+          id
+        }
+      },
+      updateApplication
+    } = this.props;
+
+    updateApplication(id, params)
       .then(() => {
         this.props.history.push('/dashboard/applications');
       })
@@ -41,8 +65,8 @@ class ApplicationsNew extends Component {
     } = this.props;
 
     return (
-      <DashboardForm header="New Application">
-        <form onSubmit={handleSubmit(this.handleCreateApplication)}>
+      <DashboardForm header="Edit Application">
+        <form onSubmit={handleSubmit(this.handleUpdateApplication)}>
           <ApplicationForm disabled={loading || submitting} />
         </form>
       </DashboardForm>
@@ -64,15 +88,17 @@ const validate = (values) => {
   return errors;
 }
 
-const mapStateToProps = ({ applications: { loading } }) => ({ 
+const mapStateToProps = ({ applications: { selected, loading } }) => ({ 
+  selected,
   loading,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  createApplication: (params) => dispatch(createApplication(params)),
+  fetchApplication: (applicationId) => dispatch(fetchApplication(applicationId)),
+  updateApplication: (applicationId, params) => dispatch(updateApplication(applicationId, params)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
-  form: 'application_new_form',
-  validate
-})(ApplicationsNew))
+  form: 'application_edit_form',
+  validate,
+})(ApplicationsEdit))
