@@ -9,7 +9,7 @@ import { isBlank } from '../helpers/validation';
 const BREADCRUMB_ROUTES = [
   { link: '/dashboard/applications', title: 'Applications' },
   { title: 'New' },
-]
+];
 
 class ApplicationsNew extends Component {
   constructor(props) {
@@ -19,32 +19,41 @@ class ApplicationsNew extends Component {
   }
 
   componentDidMount() {
-    this.props.setBreadcrumbItems(BREADCRUMB_ROUTES);
+    const { setBreadcrumbItems } = this.props;
+    setBreadcrumbItems(BREADCRUMB_ROUTES);
   }
 
   componentWillUnmount() {
-    this.props.setBreadcrumbItems([])
+    const { setBreadcrumbItems } = this.props;
+    setBreadcrumbItems([]);
   }
 
   handleCreateApplication(params) {
-    return this.props.createApplication(params)
+    const {
+      createApplication,
+      history: {
+        push,
+      },
+    } = this.props;
+
+    return createApplication(params)
       .then(() => {
-        this.props.history.push('/dashboard/applications');
-      })
+        push('/dashboard/applications');
+      });
   }
 
   render() {
-    const { 
-      loading, 
-      handleSubmit, 
-      submitting 
+    const {
+      loading,
+      handleSubmit,
+      submitting,
     } = this.props;
 
     return (
       <DashboardForm header="New Application">
         <form onSubmit={handleSubmit(this.handleCreateApplication)}>
-          <ApplicationForm 
-            disabled={loading || submitting} 
+          <ApplicationForm
+            disabled={loading || submitting}
             submitText="Create"
           />
         </form>
@@ -65,9 +74,9 @@ const validate = (values) => {
   }
 
   return errors;
-}
+};
 
-const mapStateToProps = ({ applications: { loading } }) => ({ 
+const mapStateToProps = ({ applications: { loading } }) => ({
   loading,
 });
 
@@ -77,5 +86,5 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
   form: 'application_new_form',
-  validate
-})(ApplicationsNew))
+  validate,
+})(ApplicationsNew));

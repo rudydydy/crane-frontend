@@ -23,7 +23,7 @@ const initialState = {
 };
 
 const shellsReducer = (state = initialState, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case FETCH_SHELLS_PENDING:
       return {
         ...state,
@@ -83,9 +83,8 @@ const shellsReducer = (state = initialState, action) => {
         list: state.list.map((shell) => {
           if (shell.id === action.payload.id) {
             return action.payload;
-          } else {
-            return shell;
           }
+          return shell;
         }),
         selected: null,
         loading: false,
@@ -101,9 +100,8 @@ const shellsReducer = (state = initialState, action) => {
         list: state.list.map((shell) => {
           if (shell.id === action.payload) {
             return { ...shell, loading: true };
-          } else {
-            return shell;
           }
+          return shell;
         }),
       };
     case DELETE_SHELL_SUCCESS:
@@ -117,14 +115,13 @@ const shellsReducer = (state = initialState, action) => {
         list: state.list.map((shell) => {
           if (shell.id === action.payload) {
             return { ...shell, loading: false };
-          } else {
-            return shell;
           }
+          return shell;
         }),
       };
     default:
       return state;
   }
-}
+};
 
 export default shellsReducer;

@@ -20,7 +20,7 @@ const initialState = {
 };
 
 const usersReducer = (state = initialState, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case FETCH_USERS_PENDING:
       return {
         ...state,
@@ -64,9 +64,8 @@ const usersReducer = (state = initialState, action) => {
         list: state.list.map((user) => {
           if (user.id === action.payload.id) {
             return action.payload;
-          } else {
-            return user;
           }
+          return user;
         }),
         selected: null,
         loading: false,
@@ -82,9 +81,8 @@ const usersReducer = (state = initialState, action) => {
         list: state.list.map((user) => {
           if (user.id === action.payload) {
             return { ...user, loading: true };
-          } else {
-            return user;
           }
+          return user;
         }),
       };
     case DELETE_USER_SUCCESS:
@@ -98,14 +96,13 @@ const usersReducer = (state = initialState, action) => {
         list: state.list.map((user) => {
           if (user.id === action.payload) {
             return { ...user, loading: false };
-          } else {
-            return user;
           }
+          return user;
         }),
       };
     default:
       return state;
   }
-}
+};
 
 export default usersReducer;

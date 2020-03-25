@@ -1,34 +1,34 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 const renderAction = (loading, userId, handleDeleteUser) => {
   if (loading) {
     return (
       <td colSpan={2} className="text-center">
-        <i className="text-primary fas fa-circle-notch fa-2x fa-spin"></i>
+        <i className="text-primary fas fa-circle-notch fa-2x fa-spin" />
       </td>
     );
   }
 
   return (
-    <Fragment>
+    <>
       <td>
         <Link to={`/dashboard/users/${userId}/edit`}>
-          <i className="text-success fas fa-pencil-alt"></i>
+          <i className="text-success fas fa-pencil-alt" />
         </Link>
       </td>
       <td onClick={() => handleDeleteUser(userId)}>
-        <i className="text-danger fas fa-trash"></i>
+        <i className="text-danger fas fa-trash" />
       </td>
-    </Fragment>
-  )
-}
+    </>
+  );
+};
 
-const UserRow = ({ 
-  user: { 
-    id, 
-    email, 
-    role, 
+const UserRow = ({
+  user: {
+    id,
+    email,
+    role,
     inserted_at,
     loading,
   },
@@ -40,6 +40,6 @@ const UserRow = ({
     <td>{inserted_at}</td>
     {renderAction(loading, id, handleDeleteUser)}
   </tr>
-)
+);
 
 export default UserRow;

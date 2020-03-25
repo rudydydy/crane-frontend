@@ -15,6 +15,6 @@ const DashboardForm = ({ header, children }) => (
       </div>
     </div>
   </div>
-)
+);
 
 export default DashboardForm;

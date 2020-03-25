@@ -11,7 +11,7 @@ const MainContent = ({ breadcrumbItems, newLink, children }) => (
               <nav aria-label="breadcrumb" className="d-none d-md-inline-block">
                 <ol className="breadcrumb breadcrumb-links breadcrumb-dark">
                   <li className="breadcrumb-item">
-                    <i className="ni ni-planet text-primary"></i>
+                    <i className="ni ni-planet text-primary" />
                   </li>
                   {
                     breadcrumbItems.map((breadcrumb, index) => {
@@ -20,8 +20,8 @@ const MainContent = ({ breadcrumbItems, newLink, children }) => (
                           <li key={index} className="breadcrumb-item active">
                             {breadcrumb.title}
                           </li>
-                        )
-                      } 
+                        );
+                      }
 
                       return (
                         <li key={index} className="breadcrumb-item">
@@ -29,7 +29,7 @@ const MainContent = ({ breadcrumbItems, newLink, children }) => (
                             {breadcrumb.title}
                           </Link>
                         </li>
-                      )
+                      );
                     })
                   }
                 </ol>

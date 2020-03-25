@@ -1,35 +1,35 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 const renderAction = (loading, shellId, handleDeleteShell) => {
   if (loading) {
     return (
       <td colSpan={2} className="text-center">
-        <i className="text-primary fas fa-circle-notch fa-2x fa-spin"></i>
+        <i className="text-primary fas fa-circle-notch fa-2x fa-spin" />
       </td>
     );
   }
 
   return (
-    <Fragment>
+    <>
       <td>
         <Link to={`/dashboard/shells/${shellId}/edit`}>
-          <i className="text-success fas fa-pencil-alt"></i>
+          <i className="text-success fas fa-pencil-alt" />
         </Link>
       </td>
       <td onClick={() => handleDeleteShell(shellId)}>
-        <i className="text-danger fas fa-trash"></i>
+        <i className="text-danger fas fa-trash" />
       </td>
-    </Fragment>
-  )
-}
+    </>
+  );
+};
 
-const shellRow = ({ 
-  shell: { 
-    id, 
+const shellRow = ({
+  shell: {
+    id,
     token,
-    application, 
-    status, 
+    application,
+    status,
     activated_at,
     expired_at,
     creator,
@@ -48,6 +48,6 @@ const shellRow = ({
     <td>{expired_at}</td>
     {renderAction(loading, id, handleDeleteShell)}
   </tr>
-)
+);
 
 export default shellRow;

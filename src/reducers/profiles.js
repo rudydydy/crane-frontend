@@ -5,12 +5,12 @@ import {
 } from '../constants/sessions';
 
 const initialState = {
-  email: "",
-  role: "activator",
+  email: '',
+  role: 'activator',
 };
 
 const profilesReducer = (state = initialState, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case SIGN_IN_SUCCESS:
       return {
         ...state,

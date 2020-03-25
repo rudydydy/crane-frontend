@@ -7,35 +7,37 @@ import { fetchUsers, deleteUser } from '../actions/users';
 
 const BREADCRUMB_ROUTES = [
   { title: 'Users' },
-]
-const TABLE_HEADER = ['Email', 'Role', 'Created At', '', '']
+];
+const TABLE_HEADER = ['Email', 'Role', 'Created At', '', ''];
 
 class UsersList extends Component {
   constructor(props) {
     super(props);
-    
+
     this.handleDeleteUser = this.handleDeleteUser.bind(this);
   }
 
   componentDidMount() {
-    const { 
-      setBreadcrumbItems, 
-      fetchUsers 
+    const {
+      setBreadcrumbItems,
+      fetchUsers,
     } = this.props;
 
-    setBreadcrumbItems(BREADCRUMB_ROUTES)
+    setBreadcrumbItems(BREADCRUMB_ROUTES);
     fetchUsers();
   }
 
   componentWillUnmount() {
-    this.props.setBreadcrumbItems([])
+    const { setBreadcrumbItems } = this.props;
+    setBreadcrumbItems([]);
   }
 
   handleDeleteUser(userId) {
-    const answer = window.confirm("are you sure you want to delete this user?");
+    const answer = window.confirm('are you sure you want to delete this user?');
 
     if (answer) {
-      this.props.deleteUser(userId);
+      const { deleteUser } = this.props;
+      deleteUser(userId);
     }
   }
 
@@ -43,13 +45,13 @@ class UsersList extends Component {
     const { loading, list } = this.props;
 
     if (loading) {
-      return <TableLoading colSpan={TABLE_HEADER.length} />
+      return <TableLoading colSpan={TABLE_HEADER.length} />;
     }
 
     return list.map((user, index) => (
-      <UserRow 
-        key={index} 
-        user={user} 
+      <UserRow
+        key={index}
+        user={user}
         handleDeleteUser={this.handleDeleteUser}
       />
     ));
@@ -63,11 +65,11 @@ class UsersList extends Component {
       >
         {this.renderList()}
       </Table>
-    )
+    );
   }
 }
 
-const mapStateToProps = ({ users: { list, loading } }) => ({ 
+const mapStateToProps = ({ users: { list, loading } }) => ({
   list,
   loading,
 });
@@ -77,4 +79,4 @@ const mapDispatchToProps = (dispatch) => ({
   deleteUser: (userId) => dispatch(deleteUser(userId)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersList)
+export default connect(mapStateToProps, mapDispatchToProps)(UsersList);

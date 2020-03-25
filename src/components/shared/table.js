@@ -18,6 +18,6 @@ const Table = ({ header, table_heads, children }) => (
       </div>
     </div>
   </div>
-)
+);
 
 export default Table;

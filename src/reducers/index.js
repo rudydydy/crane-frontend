@@ -1,5 +1,5 @@
-import { combineReducers  } from 'redux';
-import { reducer as formReducer  } from 'redux-form';
+import { combineReducers } from 'redux';
+import { reducer as formReducer } from 'redux-form';
 import breadcrumbs from './breadcrumbs';
 import sessions from './sessions';
 import profiles from './profiles';

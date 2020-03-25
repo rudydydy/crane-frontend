@@ -10,7 +10,7 @@ import { isBlank } from '../helpers/validation';
 const BREADCRUMB_ROUTES = [
   { link: '/dashboard/shells', title: 'Shells' },
   { title: 'New' },
-]
+];
 
 class ShellsNew extends Component {
   constructor(props) {
@@ -20,7 +20,7 @@ class ShellsNew extends Component {
   }
 
   componentDidMount() {
-    const { 
+    const {
       fetchApplications,
       setBreadcrumbItems,
     } = this.props;
@@ -30,35 +30,40 @@ class ShellsNew extends Component {
   }
 
   componentWillUnmount() {
-    this.props.setBreadcrumbItems([])
+    const { setBreadcrumbItems } = this.props;
+    setBreadcrumbItems([]);
   }
 
   handleCreateShell(params) {
-    return this.props.createShell(params)
+    const {
+      createShell,
+      history: {
+        push,
+      },
+    } = this.props;
+    return createShell(params)
       .then(() => {
-        this.props.history.push('/dashboard/shells');
-      })
+        push('/dashboard/shells');
+      });
   }
 
   render() {
-    const { 
+    const {
       applicationLists,
       applicationLoading,
-      shellLoading, 
-      handleSubmit, 
-      submitting 
+      shellLoading,
+      handleSubmit,
+      submitting,
     } = this.props;
 
-    console.log(this.props);
-
-    const applicationOptions = applicationLists.map(({ id, name }) => ({ value: id, name }))
+    const applicationOptions = applicationLists.map(({ id, name }) => ({ value: id, name }));
 
     return (
       <DashboardForm header="New Shell">
         <form onSubmit={handleSubmit(this.handleCreateShell)}>
-          <ShellForm 
+          <ShellForm
             applicationOptions={applicationOptions}
-            disabled={applicationLoading || shellLoading || submitting} 
+            disabled={applicationLoading || shellLoading || submitting}
             submitText="Create"
           />
         </form>
@@ -75,9 +80,9 @@ const validate = (values) => {
   }
 
   return errors;
-}
+};
 
-const mapStateToProps = ({ applications, shells }) => ({ 
+const mapStateToProps = ({ applications, shells }) => ({
   applicationLists: applications.list,
   applicationLoading: applications.loading,
   shellLoading: shells.loading,
@@ -90,5 +95,5 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
   form: 'shell_new_form',
-  validate
-})(ShellsNew))
+  validate,
+})(ShellsNew));

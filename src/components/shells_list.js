@@ -8,53 +8,54 @@ import { fetchShells, deleteShell } from '../actions/shells';
 const NEW_SHELL_LINK = '/dashboard/shells/new';
 const BREADCRUMB_ROUTES = [
   { title: 'Shells' },
-]
+];
 const TABLE_HEADER = [
-  'Token', 
-  'Application', 
-  'Status', 
-  'Creator', 
-  'Activator', 
-  'Activated At', 
-  'Expired At', 
-  '', 
-  ''
-]
+  'Token',
+  'Application',
+  'Status',
+  'Creator',
+  'Activator',
+  'Activated At',
+  'Expired At',
+  '',
+  '',
+];
 
 class ShellsList extends Component {
   constructor(props) {
     super(props);
-    
+
     this.handleDeleteShell = this.handleDeleteShell.bind(this);
   }
 
   componentDidMount() {
-    const { 
-      setBreadcrumbItems, 
+    const {
+      setBreadcrumbItems,
       setNewLink,
-      fetchShells 
+      fetchShells,
     } = this.props;
 
-    setBreadcrumbItems(BREADCRUMB_ROUTES)
-    setNewLink(NEW_SHELL_LINK)
+    setBreadcrumbItems(BREADCRUMB_ROUTES);
+    setNewLink(NEW_SHELL_LINK);
     fetchShells();
   }
 
   componentWillUnmount() {
-    const { 
+    const {
       setBreadcrumbItems,
       setNewLink,
     } = this.props;
-    
-    setBreadcrumbItems([])
-    setNewLink(null)
+
+    setBreadcrumbItems([]);
+    setNewLink(null);
   }
 
   handleDeleteShell(shellId) {
-    const answer = window.confirm("are you sure you want to delete this shell?");
+    const answer = window.confirm('are you sure you want to delete this shell?');
 
     if (answer) {
-      this.props.deleteShell(shellId);
+      const { deleteShell } = this.props;
+      deleteShell(shellId);
     }
   }
 
@@ -62,13 +63,13 @@ class ShellsList extends Component {
     const { loading, list } = this.props;
 
     if (loading) {
-      return <TableLoading colSpan={TABLE_HEADER.length} />
+      return <TableLoading colSpan={TABLE_HEADER.length} />;
     }
 
     return list.map((shell, index) => (
-      <ShellRow 
-        key={index} 
-        shell={shell} 
+      <ShellRow
+        key={index}
+        shell={shell}
         handleDeleteShell={this.handleDeleteShell}
       />
     ));
@@ -82,11 +83,11 @@ class ShellsList extends Component {
       >
         {this.renderList()}
       </Table>
-    )
+    );
   }
 }
 
-const mapStateToProps = ({ shells: { list, loading } }) => ({ 
+const mapStateToProps = ({ shells: { list, loading } }) => ({
   list,
   loading,
 });
@@ -96,4 +97,4 @@ const mapDispatchToProps = (dispatch) => ({
   deleteShell: (shellId) => dispatch(deleteShell(shellId)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ShellsList)
+export default connect(mapStateToProps, mapDispatchToProps)(ShellsList);

@@ -1,4 +1,4 @@
-import { 
+import {
   SET_BREADCRUMB_ITEMS,
   SET_NEW_LINK,
 } from '../constants/breadcrumbs';
@@ -9,9 +9,9 @@ const initialState = {
 };
 
 const breadcrumbssReducer = (state = initialState, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case SET_BREADCRUMB_ITEMS:
-      return { 
+      return {
         ...state,
         breadcrumbItems: action.payload,
       };
@@ -23,6 +23,6 @@ const breadcrumbssReducer = (state = initialState, action) => {
     default:
       return state;
   }
-}
+};
 
 export default breadcrumbssReducer;

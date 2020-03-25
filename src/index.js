@@ -6,7 +6,7 @@ import {
   Switch,
   Route,
   Redirect,
-} from "react-router-dom";
+} from 'react-router-dom';
 import './assets/css/argon.css';
 import './assets/css/fontawesome.min.css';
 import './assets/css/nucleo.css';
@@ -30,63 +30,63 @@ ReactDOM.render(
   <Provider store={store}>
     <Router>
       <Switch>
-        <Route exact={true} path="/">
+        <Route exact path="/">
           <Redirect to="/sign_in" />
         </Route>
         <Route
-          exact={true}
+          exact
           path="/sign_in"
           component={SignIn}
         />
         <Route
-          exact={true}
+          exact
           path="/sign_up"
           component={SignUp}
         />
         <Route
-          exact={true}
+          exact
           path="/dashboard"
           component={DashboardLayout(() => <div />)}
         />
         <Route
-          exact={true}
+          exact
           path="/dashboard/users"
           component={DashboardLayout(UsersList)}
         />
         <Route
-          exact={true}
+          exact
           path="/dashboard/users/:id/edit"
           component={DashboardLayout(UsersEdit)}
         />
         <Route
-          exact={true}
+          exact
           path="/dashboard/applications"
           component={DashboardLayout(ApplicationsList)}
         />
         <Route
-          exact={true}
+          exact
           path="/dashboard/applications/new"
           component={DashboardLayout(ApplicationsNew)}
         />
         <Route
-          exact={true}
+          exact
           path="/dashboard/applications/:id/edit"
           component={DashboardLayout(ApplicationsEdit)}
         />
         <Route
-          exact={true}
+          exact
           path="/dashboard/shells"
           component={DashboardLayout(ShellsList)}
         />
         <Route
-          exact={true}
+          exact
           path="/dashboard/shells/new"
           component={DashboardLayout(ShellsNew)}
         />
       </Switch>
-    </Router> 
+    </Router>
   </Provider>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
 
 // If you want your app to work offline and load faster, you can change

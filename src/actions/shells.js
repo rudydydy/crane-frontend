@@ -23,87 +23,87 @@ import { errorFormatter } from '../helpers/formatter';
 
 const fetchShellsPending = () => ({
   type: FETCH_SHELLS_PENDING,
-})
+});
 
 const fetchShellsSuccess = (payload) => ({
   type: FETCH_SHELLS_SUCCESS,
   payload,
-})
+});
 
 const fetchShellsFailed = () => ({
   type: FETCH_SHELLS_FAILED,
-})
+});
 
 export const fetchShells = () => (dispatch) => {
   const endpoint = '/api/v1/shells';
-  
+
   dispatch(fetchShellsPending());
   return axios.get(endpoint)
-    .then(res => res.data)
-    .then(json => {
+    .then((res) => res.data)
+    .then((json) => {
       dispatch(fetchShellsSuccess(json.data));
     })
-    .catch(error => {
+    .catch((error) => {
       dispatch(errorResponse(error.response));
       dispatch(fetchShellsFailed());
     });
-}
+};
 
 const fetchShellPending = () => ({
   type: FETCH_SHELL_PENDING,
-})
+});
 
 const fetchShellSuccess = (payload) => ({
   type: FETCH_SHELL_SUCCESS,
   payload,
-})
+});
 
 const fetchShellFailed = () => ({
   type: FETCH_SHELL_FAILED,
-})
+});
 
 export const fetchShell = (shellId) => (dispatch, getState) => {
-  const { 
-    shells: { 
-      list 
-    } 
+  const {
+    shells: {
+      list,
+    },
   } = getState();
 
-  const selectedShell = list.find((shell) => shell.id === parseInt(shellId));
+  const selectedShell = list.find((shell) => shell.id === parseInt(shellId, 10));
 
   if (selectedShell) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       dispatch(fetchShellSuccess(selectedShell));
-      resolve()
+      resolve();
     });
-  } 
+  }
 
   const endpoint = `/api/v1/shells/${shellId}`;
 
   dispatch(fetchShellPending());
   return axios.get(endpoint)
-    .then(res => res.data)
-    .then(json => {
+    .then((res) => res.data)
+    .then((json) => {
       dispatch(fetchShellSuccess(json.data));
     })
-    .catch(error => {
+    .catch((error) => {
       dispatch(errorResponse(error.response));
       dispatch(fetchShellFailed());
     });
-}
+};
 
 const createShellPending = () => ({
   type: CREATE_SHELL_PENDING,
-})
+});
 
 const createShellSuccess = (payload) => ({
   type: CREATE_SHELL_SUCCESS,
   payload,
-})
+});
 
 const createShellFailed = () => ({
   type: CREATE_SHELL_FAILED,
-})
+});
 
 export const createShell = (params) => (dispatch) => {
   const endpoint = '/api/v1/shells';
@@ -111,11 +111,11 @@ export const createShell = (params) => (dispatch) => {
 
   dispatch(createShellPending());
   return axios.post(endpoint, body)
-    .then(res => res.data)
-    .then(json => {
+    .then((res) => res.data)
+    .then((json) => {
       dispatch(createShellSuccess(json.data));
     })
-    .catch(error => {
+    .catch((error) => {
       dispatch(errorResponse(error.response));
       dispatch(createShellFailed());
 
@@ -126,20 +126,20 @@ export const createShell = (params) => (dispatch) => {
         throw new SubmissionError(serverError);
       }
     });
-}
+};
 
 const updateShellPending = () => ({
   type: UPDATE_SHELL_PENDING,
-})
+});
 
 const updateShellSuccess = (payload) => ({
   type: UPDATE_SHELL_SUCCESS,
   payload,
-})
+});
 
 const updateShellFailed = () => ({
   type: UPDATE_SHELL_FAILED,
-})
+});
 
 export const updateShell = (shellId, params) => (dispatch) => {
   const endpoint = `/api/v1/shells/${shellId}`;
@@ -147,11 +147,11 @@ export const updateShell = (shellId, params) => (dispatch) => {
 
   dispatch(updateShellPending());
   return axios.put(endpoint, body)
-    .then(res => res.data)
-    .then(json => {
+    .then((res) => res.data)
+    .then((json) => {
       dispatch(updateShellSuccess(json.data));
     })
-    .catch(error => {
+    .catch((error) => {
       dispatch(errorResponse(error.response));
       dispatch(updateShellFailed());
 
@@ -162,22 +162,22 @@ export const updateShell = (shellId, params) => (dispatch) => {
         throw new SubmissionError(serverError);
       }
     });
-}
+};
 
 const deleteShellPending = (payload) => ({
   type: DELETE_SHELL_PENDING,
   payload,
-})
+});
 
 const deleteShellSuccess = (payload) => ({
   type: DELETE_SHELL_SUCCESS,
   payload,
-})
+});
 
 const deleteShellFailed = (payload) => ({
   type: DELETE_SHELL_FAILED,
   payload,
-})
+});
 
 export const deleteShell = (shellId) => (dispatch) => {
   const endpoint = `/api/v1/shells/${shellId}`;
@@ -187,8 +187,8 @@ export const deleteShell = (shellId) => (dispatch) => {
     .then(() => {
       dispatch(deleteShellSuccess(shellId));
     })
-    .catch(error => {
+    .catch((error) => {
       dispatch(errorResponse(error.response));
       dispatch(deleteShellFailed(shellId));
     });
-}
+};

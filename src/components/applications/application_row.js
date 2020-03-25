@@ -1,34 +1,34 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 const renderAction = (loading, applicationId, handleDeleteApplication) => {
   if (loading) {
     return (
       <td colSpan={2} className="text-center">
-        <i className="text-primary fas fa-circle-notch fa-2x fa-spin"></i>
+        <i className="text-primary fas fa-circle-notch fa-2x fa-spin" />
       </td>
     );
   }
 
   return (
-    <Fragment>
+    <>
       <td>
         <Link to={`/dashboard/applications/${applicationId}/edit`}>
-          <i className="text-success fas fa-pencil-alt"></i>
+          <i className="text-success fas fa-pencil-alt" />
         </Link>
       </td>
       <td onClick={() => handleDeleteApplication(applicationId)}>
-        <i className="text-danger fas fa-trash"></i>
+        <i className="text-danger fas fa-trash" />
       </td>
-    </Fragment>
-  )
-}
+    </>
+  );
+};
 
-const ApplicationRow = ({ 
-  application: { 
-    id, 
-    name, 
-    command, 
+const ApplicationRow = ({
+  application: {
+    id,
+    name,
+    command,
     inserted_at,
     loading,
   },
@@ -40,6 +40,6 @@ const ApplicationRow = ({
     <td>{inserted_at}</td>
     {renderAction(loading, id, handleDeleteApplication)}
   </tr>
-)
+);
 
 export default ApplicationRow;

@@ -10,7 +10,7 @@ import { isBlank } from '../helpers/validation';
 const BREADCRUMB_ROUTES = [
   { link: '/dashboard/users', title: 'Users' },
   { title: 'Edit' },
-]
+];
 
 const ROLE_OPTIONS = [
   { value: 'admin', name: 'Admin' },
@@ -26,49 +26,54 @@ class UsersEdit extends Component {
   }
 
   componentDidMount() {
-    const { 
-      initialize, 
-      match: { 
+    const {
+      initialize,
+      match: {
         params: {
-          id
-        }
+          id,
+        },
       },
       setBreadcrumbItems,
-      fetchUser 
+      fetchUser,
     } = this.props;
 
     setBreadcrumbItems(BREADCRUMB_ROUTES);
     fetchUser(id)
       .then(() => {
-        initialize({ ...this.props.selected });
-      })
+        const { selected } = this.props;
+        initialize({ ...selected });
+      });
   }
 
   componentWillUnmount() {
-    this.props.setBreadcrumbItems([])
+    const { setBreadcrumbItems } = this.props;
+    setBreadcrumbItems([]);
   }
 
   handleUpdateUser(params) {
     const {
       match: {
         params: {
-          id
-        }
+          id,
+        },
       },
-      updateUser
+      history: {
+        push,
+      },
+      updateUser,
     } = this.props;
 
     updateUser(id, params)
       .then(() => {
-        this.props.history.push('/dashboard/users');
-      })
+        push('/dashboard/users');
+      });
   }
 
   render() {
-    const { 
-      loading, 
-      handleSubmit, 
-      submitting 
+    const {
+      loading,
+      handleSubmit,
+      submitting,
     } = this.props;
 
     return (
@@ -95,8 +100,8 @@ class UsersEdit extends Component {
                 />
               </div>
               <div className="col-lg-12 text-right">
-                <button 
-                  type="submit" 
+                <button
+                  type="submit"
                   className="btn btn-primary my-4"
                   disabled={loading || submitting}
                 >
@@ -119,9 +124,9 @@ const validate = (values) => {
   }
 
   return errors;
-}
+};
 
-const mapStateToProps = ({ users: { selected, loading } }) => ({ 
+const mapStateToProps = ({ users: { selected, loading } }) => ({
   selected,
   loading,
 });
@@ -134,4 +139,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
   form: 'user_edit_form',
   validate,
-})(UsersEdit))
+})(UsersEdit));

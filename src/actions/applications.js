@@ -23,87 +23,89 @@ import { errorFormatter } from '../helpers/formatter';
 
 const fetchApplicationsPending = () => ({
   type: FETCH_APPLICATIONS_PENDING,
-})
+});
 
 const fetchApplicationsSuccess = (payload) => ({
   type: FETCH_APPLICATIONS_SUCCESS,
   payload,
-})
+});
 
 const fetchApplicationsFailed = () => ({
   type: FETCH_APPLICATIONS_FAILED,
-})
+});
 
 export const fetchApplications = () => (dispatch) => {
   const endpoint = '/api/v1/applications';
-  
+
   dispatch(fetchApplicationsPending());
   return axios.get(endpoint)
-    .then(res => res.data)
-    .then(json => {
+    .then((res) => res.data)
+    .then((json) => {
       dispatch(fetchApplicationsSuccess(json.data));
     })
-    .catch(error => {
+    .catch((error) => {
       dispatch(errorResponse(error.response));
       dispatch(fetchApplicationsFailed());
     });
-}
+};
 
 const fetchApplicationPending = () => ({
   type: FETCH_APPLICATION_PENDING,
-})
+});
 
 const fetchApplicationSuccess = (payload) => ({
   type: FETCH_APPLICATION_SUCCESS,
   payload,
-})
+});
 
 const fetchApplicationFailed = () => ({
   type: FETCH_APPLICATION_FAILED,
-})
+});
 
 export const fetchApplication = (applicationId) => (dispatch, getState) => {
-  const { 
-    applications: { 
-      list 
-    } 
+  const {
+    applications: {
+      list,
+    },
   } = getState();
 
-  const selectedApplication = list.find((application) => application.id === parseInt(applicationId));
+  const selectedApplication = list.find((application) => (
+    application.id === parseInt(applicationId, 10)
+  ));
 
   if (selectedApplication) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       dispatch(fetchApplicationSuccess(selectedApplication));
-      resolve()
+      resolve();
     });
-  } 
+  }
 
   const endpoint = `/api/v1/applications/${applicationId}`;
 
   dispatch(fetchApplicationPending());
   return axios.get(endpoint)
-    .then(res => res.data)
-    .then(json => {
+    .then((res) => res.data)
+    .then((json) => {
       dispatch(fetchApplicationSuccess(json.data));
     })
-    .catch(error => {
+    .catch((error) => {
       dispatch(errorResponse(error.response));
       dispatch(fetchApplicationFailed());
     });
-}
+};
 
 const createApplicationPending = () => ({
   type: CREATE_APPLICATION_PENDING,
-})
+});
 
 const createApplicationSuccess = (payload) => ({
   type: CREATE_APPLICATION_SUCCESS,
   payload,
-})
+});
 
 const createApplicationFailed = () => ({
   type: CREATE_APPLICATION_FAILED,
-})
+});
 
 export const createApplication = (params) => (dispatch) => {
   const endpoint = '/api/v1/applications';
@@ -111,11 +113,11 @@ export const createApplication = (params) => (dispatch) => {
 
   dispatch(createApplicationPending());
   return axios.post(endpoint, body)
-    .then(res => res.data)
-    .then(json => {
+    .then((res) => res.data)
+    .then((json) => {
       dispatch(createApplicationSuccess(json.data));
     })
-    .catch(error => {
+    .catch((error) => {
       dispatch(errorResponse(error.response));
       dispatch(createApplicationFailed());
 
@@ -126,20 +128,20 @@ export const createApplication = (params) => (dispatch) => {
         throw new SubmissionError(serverError);
       }
     });
-}
+};
 
 const updateApplicationPending = () => ({
   type: UPDATE_APPLICATION_PENDING,
-})
+});
 
 const updateApplicationSuccess = (payload) => ({
   type: UPDATE_APPLICATION_SUCCESS,
   payload,
-})
+});
 
 const updateApplicationFailed = () => ({
   type: UPDATE_APPLICATION_FAILED,
-})
+});
 
 export const updateApplication = (applicationId, params) => (dispatch) => {
   const endpoint = `/api/v1/applications/${applicationId}`;
@@ -147,11 +149,11 @@ export const updateApplication = (applicationId, params) => (dispatch) => {
 
   dispatch(updateApplicationPending());
   return axios.put(endpoint, body)
-    .then(res => res.data)
-    .then(json => {
+    .then((res) => res.data)
+    .then((json) => {
       dispatch(updateApplicationSuccess(json.data));
     })
-    .catch(error => {
+    .catch((error) => {
       dispatch(errorResponse(error.response));
       dispatch(updateApplicationFailed());
 
@@ -162,22 +164,22 @@ export const updateApplication = (applicationId, params) => (dispatch) => {
         throw new SubmissionError(serverError);
       }
     });
-}
+};
 
 const deleteApplicationPending = (payload) => ({
   type: DELETE_APPLICATION_PENDING,
   payload,
-})
+});
 
 const deleteApplicationSuccess = (payload) => ({
   type: DELETE_APPLICATION_SUCCESS,
   payload,
-})
+});
 
 const deleteApplicationFailed = (payload) => ({
   type: DELETE_APPLICATION_FAILED,
   payload,
-})
+});
 
 export const deleteApplication = (applicationId) => (dispatch) => {
   const endpoint = `/api/v1/applications/${applicationId}`;
@@ -187,8 +189,8 @@ export const deleteApplication = (applicationId) => (dispatch) => {
     .then(() => {
       dispatch(deleteApplicationSuccess(applicationId));
     })
-    .catch(error => {
+    .catch((error) => {
       dispatch(errorResponse(error.response));
       dispatch(deleteApplicationFailed(applicationId));
     });
-}
+};

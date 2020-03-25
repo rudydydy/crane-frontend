@@ -9,7 +9,7 @@ import { isBlank } from '../helpers/validation';
 const BREADCRUMB_ROUTES = [
   { link: '/dashboard/applications', title: 'Applications' },
   { title: 'Edit' },
-]
+];
 
 class ApplicationsEdit extends Component {
   constructor(props) {
@@ -19,56 +19,61 @@ class ApplicationsEdit extends Component {
   }
 
   componentDidMount() {
-    const { 
-      initialize, 
-      match: { 
+    const {
+      initialize,
+      match: {
         params: {
-          id
-        }
+          id,
+        },
       },
       setBreadcrumbItems,
-      fetchApplication 
+      fetchApplication,
     } = this.props;
 
     setBreadcrumbItems(BREADCRUMB_ROUTES);
     fetchApplication(id)
       .then(() => {
-        initialize({ ...this.props.selected });
-      })
+        const { selected } = this.props;
+        initialize({ ...selected });
+      });
   }
 
   componentWillUnmount() {
-    this.props.setBreadcrumbItems([])
+    const { setBreadcrumbItems } = this.props;
+    setBreadcrumbItems([]);
   }
 
   handleUpdateApplication(params) {
     const {
       match: {
         params: {
-          id
-        }
+          id,
+        },
       },
-      updateApplication
+      history: {
+        push,
+      },
+      updateApplication,
     } = this.props;
 
-    updateApplication(id, params)
+    return updateApplication(id, params)
       .then(() => {
-        this.props.history.push('/dashboard/applications');
-      })
+        push('/dashboard/applications');
+      });
   }
 
   render() {
-    const { 
-      loading, 
-      handleSubmit, 
-      submitting 
+    const {
+      loading,
+      handleSubmit,
+      submitting,
     } = this.props;
 
     return (
       <DashboardForm header="Edit Application">
         <form onSubmit={handleSubmit(this.handleUpdateApplication)}>
-          <ApplicationForm 
-            disabled={loading || submitting} 
+          <ApplicationForm
+            disabled={loading || submitting}
             submitText="Update"
           />
         </form>
@@ -89,9 +94,9 @@ const validate = (values) => {
   }
 
   return errors;
-}
+};
 
-const mapStateToProps = ({ applications: { selected, loading } }) => ({ 
+const mapStateToProps = ({ applications: { selected, loading } }) => ({
   selected,
   loading,
 });
@@ -104,4 +109,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
   form: 'application_edit_form',
   validate,
-})(ApplicationsEdit))
+})(ApplicationsEdit));

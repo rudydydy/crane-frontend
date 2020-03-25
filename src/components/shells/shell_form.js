@@ -14,8 +14,8 @@ const ShellForm = ({ applicationOptions, disabled, submitText }) => (
         />
       </div>
       <div className="col-lg-12 text-right">
-        <button 
-          type="submit" 
+        <button
+          type="submit"
           className="btn btn-primary my-4"
           disabled={disabled}
         >
@@ -24,6 +24,6 @@ const ShellForm = ({ applicationOptions, disabled, submitText }) => (
       </div>
     </div>
   </div>
-)
+);
 
 export default ShellForm;

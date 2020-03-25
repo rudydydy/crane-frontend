@@ -16,7 +16,7 @@ const initialState = {
 };
 
 const sessionsReducer = (state = initialState, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case SIGN_IN_PENDING:
       return {
         ...state,

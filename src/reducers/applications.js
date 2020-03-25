@@ -23,7 +23,7 @@ const initialState = {
 };
 
 const applicationsReducer = (state = initialState, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case FETCH_APPLICATIONS_PENDING:
       return {
         ...state,
@@ -83,9 +83,8 @@ const applicationsReducer = (state = initialState, action) => {
         list: state.list.map((APPLICATION) => {
           if (APPLICATION.id === action.payload.id) {
             return action.payload;
-          } else {
-            return APPLICATION;
           }
+          return APPLICATION;
         }),
         selected: null,
         loading: false,
@@ -101,9 +100,8 @@ const applicationsReducer = (state = initialState, action) => {
         list: state.list.map((application) => {
           if (application.id === action.payload) {
             return { ...application, loading: true };
-          } else {
-            return application;
           }
+          return application;
         }),
       };
     case DELETE_APPLICATION_SUCCESS:
@@ -117,14 +115,13 @@ const applicationsReducer = (state = initialState, action) => {
         list: state.list.map((application) => {
           if (application.id === action.payload) {
             return { ...application, loading: false };
-          } else {
-            return application;
           }
+          return application;
         }),
       };
     default:
       return state;
   }
-}
+};
 
 export default applicationsReducer;

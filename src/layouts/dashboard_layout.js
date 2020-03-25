@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Sidebar from './dashboard_layout/sidebar';
@@ -17,60 +17,58 @@ function DashboardLayout(WrappedComponent) {
     }
 
     handleSignOut() {
-      this.props.signOutUser();
+      const { signOutUser } = this.props;
+      signOutUser();
     }
 
     render() {
-      const { 
+      const {
         breadcrumbItems,
         newLink,
-        authenticated, 
-        email, 
-        role 
+        authenticated,
+        role,
       } = this.props;
 
       if (!authenticated) {
         return <Redirect to="/sign_in" />;
       }
-      console.log("Dashlayout", this.props);
 
       return (
-        <Fragment>
-          <Sidebar 
-            email={email}
+        <>
+          <Sidebar
             role={role}
             handleSignOut={this.handleSignOut}
           />
-          <MainContent 
+          <MainContent
             breadcrumbItems={breadcrumbItems}
             newLink={newLink}
           >
             <WrappedComponent {...this.props} />
           </MainContent>
-        </Fragment>
+        </>
       );
     }
   }
 
-  const mapStateToProps = ({ 
+  const mapStateToProps = ({
     breadcrumbs,
-    sessions: { 
+    sessions: {
       authenticated,
-    }, 
+    },
     profiles,
   }) => ({
     ...breadcrumbs,
     authenticated,
-    ...profiles 
+    ...profiles,
   });
-  
+
   const mapDispatchToProps = (dispatch) => ({
     setBreadcrumbItems: (payload) => dispatch(setBreadcrumbItems(payload)),
     setNewLink: (payload) => dispatch(setNewLink(payload)),
     signOutUser: () => dispatch(signOutUser()),
   });
 
-  return connect(mapStateToProps, mapDispatchToProps)(DashboardHOC)
+  return connect(mapStateToProps, mapDispatchToProps)(DashboardHOC);
 }
 
 export default DashboardLayout;
