@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { Redirect } from "react-router-dom";
-import InputField from './shared/input_field';
+import InputGroupField from './shared/input_group_field';
 import { signUpUser } from '../actions/sessions';
 import { isBlank, isEmailFormat } from '../helpers/validation';
 
@@ -54,26 +54,26 @@ class SignUp extends Component {
                     <Field
                       name="email"
                       type="email"
-                      label="Email"
+                      placeholder="Email"
                       icon="ni-email-83"
                       autocomplete="off"
-                      component={InputField}
+                      component={InputGroupField}
                     />
                     <Field
                       name="password"
                       type="password"
-                      label="Password"
+                      placeholder="Password"
                       icon="ni-lock-circle-open"
                       autocomplete="off"
-                      component={InputField}
+                      component={InputGroupField}
                     />
                     <Field
                       name="password_confirmation"
                       type="password"
-                      label="Password Confirmation"
+                      placeholder="Password Confirmation"
                       icon="ni-lock-circle-open"
                       autocomplete="off"
-                      component={InputField}
+                      component={InputGroupField}
                     />
                     <div className="text-center">
                       <button 

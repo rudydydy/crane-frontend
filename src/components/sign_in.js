@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { Redirect } from "react-router-dom";
-import InputField from './shared/input_field';
+import InputGroupField from './shared/input_group_field';
 import { signInUser } from '../actions/sessions';
 
 class SignIn extends Component {
@@ -53,18 +53,18 @@ class SignIn extends Component {
                     <Field
                       name="email"
                       type="email"
-                      label="Email"
+                      placeholder="Email"
                       icon="ni-email-83"
                       autocomplete="off"
-                      component={InputField}
+                      component={InputGroupField}
                     />
                     <Field
                       name="password"
                       type="password"
-                      label="Password"
+                      placeholder="Password"
                       icon="ni-lock-circle-open"
                       autocomplete="off"
-                      component={InputField}
+                      component={InputGroupField}
                     />
                     <div className="text-center">
                       <button 

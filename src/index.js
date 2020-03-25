@@ -17,6 +17,7 @@ import DashboardLayout from './layouts/dashboard_layout';
 import SignIn from './components/sign_in';
 import SignUp from './components/sign_up';
 import UsersList from './components/users_list';
+import UsersEdit from './components/users_edit';
 import * as serviceWorker from './serviceWorker';
 
 sessionChecker(store);
@@ -51,6 +52,11 @@ ReactDOM.render(
           exact={true}
           path="/dashboard/users"
           component={DashboardLayout(UsersList)}
+        />
+        <Route
+          exact={true}
+          path="/dashboard/users/:id/edit"
+          component={DashboardLayout(UsersEdit)}
         />
       </Switch>
     </Router> 

@@ -1,21 +1,15 @@
 import React from 'react';
 
-const InputField = ({ input, label, icon, type, meta: { touched, error  } }) => (
+const InputField = ({ input, label, placeholder, type, disabled, meta: { touched, error } }) => (
   <div className="form-group">
-    <div className="input-group input-group-merge input-group-alternative">
-      {
-        icon &&
-        <div className="input-group-prepend">
-          <span className="input-group-text"><i className={`ni ${icon}`}></i></span>
-        </div>
-      }
-      <input
-        {...input} 
-        className="form-control" 
-        placeholder={label} 
-        type={type}
-      />
-    </div>
+    <label className="form-control-label">{label}</label>
+    <input
+      {...input} 
+      className="form-control" 
+      placeholder={placeholder}
+      type={type}
+      disabled={disabled}
+    />
     {touched && error && <span className="text-danger">{error}</span>}
   </div>
 );
