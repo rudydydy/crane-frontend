@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Sidebar from './dashboard_layout/sidebar';
 import MainContent from './dashboard_layout/main_content';
-import { setBreadcrumbItems } from '../actions/breadcrumbs';
+import { setBreadcrumbItems, setNewLink } from '../actions/breadcrumbs';
 import { signOutUser } from '../actions/sessions';
 
 function DashboardLayout(WrappedComponent) {
@@ -22,7 +22,8 @@ function DashboardLayout(WrappedComponent) {
 
     render() {
       const { 
-        breadcrumbs,
+        breadcrumbItems,
+        newLink,
         authenticated, 
         email, 
         role 
@@ -31,6 +32,7 @@ function DashboardLayout(WrappedComponent) {
       if (!authenticated) {
         return <Redirect to="/sign_in" />;
       }
+      console.log("Dashlayout", this.props);
 
       return (
         <Fragment>
@@ -39,7 +41,10 @@ function DashboardLayout(WrappedComponent) {
             role={role}
             handleSignOut={this.handleSignOut}
           />
-          <MainContent breadcrumbs={breadcrumbs}>
+          <MainContent 
+            breadcrumbItems={breadcrumbItems}
+            newLink={newLink}
+          >
             <WrappedComponent {...this.props} />
           </MainContent>
         </Fragment>
@@ -54,13 +59,14 @@ function DashboardLayout(WrappedComponent) {
     }, 
     profiles,
   }) => ({
-    breadcrumbs,
+    ...breadcrumbs,
     authenticated,
     ...profiles 
   });
   
   const mapDispatchToProps = (dispatch) => ({
     setBreadcrumbItems: (payload) => dispatch(setBreadcrumbItems(payload)),
+    setNewLink: (payload) => dispatch(setNewLink(payload)),
     signOutUser: () => dispatch(signOutUser()),
   });
 

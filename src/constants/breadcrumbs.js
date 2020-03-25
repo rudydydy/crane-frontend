@@ -1,1 +1,2 @@
 export const SET_BREADCRUMB_ITEMS = 'SET_BREADCRUMB_ITEMS'; 
+export const SET_NEW_LINK = 'SET_NEW_LINK';

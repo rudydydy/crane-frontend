@@ -1,3 +1,4 @@
+import { SubmissionError } from 'redux-form';
 import axios from 'axios';
 import {
   FETCH_USERS_PENDING,
@@ -14,6 +15,8 @@ import {
   DELETE_USER_FAILED,
 } from '../constants/users';
 import { errorResponse } from './errors';
+import HttpStatus from '../helpers/http_status';
+import { errorFormatter } from '../helpers/formatter';
 
 const fetchUsersPending = () => ({
   type: FETCH_USERS_PENDING,
@@ -70,20 +73,20 @@ export const fetchUser = (userId) => (dispatch, getState) => {
       dispatch(fetchUserSuccess(selectedUser));
       resolve()
     });
-  } else {
-    const endpoint = `/api/v1/users/${userId}`;
+  } 
 
-    dispatch(fetchUserPending());
-    return axios.get(endpoint)
-      .then(res => res.data)
-      .then(json => {
-        dispatch(fetchUserSuccess(json.data));
-      })
-      .catch(error => {
-        dispatch(errorResponse(error.response));
-        dispatch(fetchUserFailed());
-      });
-  }
+  const endpoint = `/api/v1/users/${userId}`;
+
+  dispatch(fetchUserPending());
+  return axios.get(endpoint)
+    .then(res => res.data)
+    .then(json => {
+      dispatch(fetchUserSuccess(json.data));
+    })
+    .catch(error => {
+      dispatch(errorResponse(error.response));
+      dispatch(fetchUserFailed());
+    });
 }
 
 const updateUserPending = () => ({
@@ -112,6 +115,13 @@ export const updateUser = (userId, params) => (dispatch) => {
     .catch(error => {
       dispatch(errorResponse(error.response));
       dispatch(updateUserFailed());
+
+      if (error.response.status === HttpStatus.UnprocessableEntity) {
+        const errorValidation = error.response.data.errors;
+        const serverError = errorFormatter(errorValidation);
+
+        throw new SubmissionError(serverError);
+      }
     });
 }
 

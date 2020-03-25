@@ -26,6 +26,10 @@ class UsersList extends Component {
     fetchUsers();
   }
 
+  componentWillUnmount() {
+    this.props.setBreadcrumbItems([])
+  }
+
   handleDeleteUser(userId) {
     const answer = window.confirm("are you sure you want to delete this user?");
 

@@ -5,6 +5,7 @@ import DashboardForm from './shared/dashboard_form';
 import InputField from './shared/input_field';
 import SelectField from './shared/select_field';
 import { fetchUser, updateUser } from '../actions/users';
+import { isBlank } from '../helpers/validation';
 
 const BREADCRUMB_ROUTES = [
   { link: '/dashboard/users', title: 'Users' },
@@ -41,6 +42,10 @@ class UsersEdit extends Component {
       .then(() => {
         initialize({ ...this.props.selected });
       })
+  }
+
+  componentDidUnmount() {
+    this.props.setBreadcrumbItems([])
   }
 
   handleUpdateUser(params) {
@@ -106,6 +111,16 @@ class UsersEdit extends Component {
   }
 }
 
+const validate = (values) => {
+  const errors = {};
+
+  if (isBlank(values.role)) {
+    errors.role = "can't be blank";
+  }
+
+  return errors;
+}
+
 const mapStateToProps = ({ users: { selected, loading } }) => ({ 
   selected,
   loading,
@@ -117,5 +132,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
-  form: 'user_edit_form' 
+  form: 'user_edit_form',
+  validate,
 })(UsersEdit))

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const MainContent = ({ breadcrumbs, children }) => (
+const MainContent = ({ breadcrumbItems, newLink, children }) => (
   <div className="main-content" id="panel">
     <div className="header bg-primary pb-6">
       <div className="container-fluid">
@@ -16,17 +16,17 @@ const MainContent = ({ breadcrumbs, children }) => (
                     </Link>
                   </li>
                   {
-                    breadcrumbs.map((breadcrumb, index) => {
-                      if (index === (breadcrumbs.length - 1)) {
+                    breadcrumbItems.map((breadcrumb, index) => {
+                      if (index === (breadcrumbItems.length - 1)) {
                         return (
-                          <li className="breadcrumb-item active">
+                          <li key={index} className="breadcrumb-item active">
                             {breadcrumb.title}
                           </li>
                         )
                       } 
 
                       return (
-                        <li className="breadcrumb-item">
+                        <li key={index} className="breadcrumb-item">
                           <Link to={breadcrumb.link}>
                             {breadcrumb.title}
                           </Link>
@@ -36,6 +36,9 @@ const MainContent = ({ breadcrumbs, children }) => (
                   }
                 </ol>
               </nav>
+            </div>
+            <div className="col-lg-6 col-5 text-right">
+              {newLink && <Link to={newLink} className="btn btn-sm btn-neutral">New</Link>}
             </div>
           </div>
         </div>

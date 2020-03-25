@@ -4,6 +4,7 @@ import breadcrumbs from './breadcrumbs';
 import sessions from './sessions';
 import profiles from './profiles';
 import users from './users';
+import applications from './applications';
 
 const rootReducer = combineReducers({
   form: formReducer,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   sessions,
   profiles,
   users,
+  applications,
 });
 
 export default rootReducer;

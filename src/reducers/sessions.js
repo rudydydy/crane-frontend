@@ -44,6 +44,7 @@ const sessionsReducer = (state = initialState, action) => {
         ...state,
         authenticated: true,
         loading: false,
+        mesage: null,
       };
     case SIGN_UP_FAILED:
       return {
