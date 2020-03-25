@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Table from './shared/table';
+import UserRow from './users_list/user_row';
 import { fetchUsers } from '../actions/users';
 
 class UsersList extends Component {
@@ -15,14 +16,7 @@ class UsersList extends Component {
       return "Loading..."
     }
 
-    return list.map((user) => (
-      <tr key={user.id}>
-        <td>{user.email}</td>
-        <td>{user.role}</td>
-        <td>{user.inserted_at}</td>
-        <td />
-      </tr>
-    ))
+    return list.map((user) => <UserRow user={user} />);
   }
 
   render() {
